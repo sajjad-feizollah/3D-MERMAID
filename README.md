@@ -9,6 +9,7 @@ Two different pipelines are presented as described in the paper:
 * ***recon_pipeline.m*** is the pipeline of Figure 2.
 * ***recon_pipeline_denoising.m*** is the pipeline in Figure S2 that includes denoising.
 ## Requirements:
+* Siemens mapVBVD reader is required for importing TWIX files.
 * BART toolbox is required for estimating coil sensitivity maps, and reconstructing scans using Compressed SENSE:
 https://mrirecon.github.io/bart/
 * NORDIC was integrated in the pipeline to include denoising. The provided code is adapted from the original implementation:
