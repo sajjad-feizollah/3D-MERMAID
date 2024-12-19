@@ -6,8 +6,8 @@ Codes required for Bloch simulation can be found in ***3D_MERMAID_sim*** directo
 # Image reconstruction
 Image reconstruction pipeline for reconstructing scans acquired using 3D MERMAID sequence can be found in ***Imge_reconstruction*** directory. Currently, the code is adapted for using TWIX data of Siemens scanners.
 Two different pipelines are presented as described in the paper:
-* ***recon_pipeline.m*** is the pipeline of Figure 2.
-* ***recon_pipeline_denoising.m*** is the pipeline in Figure S2 that includes denoising.
+* ***recon_pipeline.m*** is the image reconstruction pipeline of Figure 2.
+* ***recon_pipeline_denoising.m*** is the image reconstruction pipeline in Figure S2 that includes denoising.
 ## Requirements:
 * Siemens mapVBVD reader is required for importing TWIX files.
 * BART toolbox is required for estimating coil sensitivity maps, and reconstructing scans using Compressed SENSE:
