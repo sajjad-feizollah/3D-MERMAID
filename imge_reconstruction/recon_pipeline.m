@@ -28,7 +28,7 @@
 
 %vvvvvvvvvvvvvvv--List of TWIX files to reconstruct--vvvvvvvvvvvvvvvvvvv
 data_address={
-'/export03/data/data/scans/281_Dec18_scan_for_share_WenDa/twix/meas_MID00305_FID13602_SF_mermaid_diff.dat'
+'/twix/meas_MID00305_FID13602_SF_mermaid_diff.dat'
 };
 
 for i_data = 1: length(data_address)
