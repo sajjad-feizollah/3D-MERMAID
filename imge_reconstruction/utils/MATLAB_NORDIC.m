@@ -276,7 +276,7 @@ II=II./ARG.ABSOLUTE_SCALE;
 %  II=II(:,:,:,1:95);
 
 if size(II,4)<6
-    disp('Too few volumes')
+    error('Too few volumes')
     % return
 end
 

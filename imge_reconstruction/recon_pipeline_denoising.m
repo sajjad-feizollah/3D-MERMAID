@@ -27,11 +27,11 @@
 % Article: 
 % -------
 % 
-% Sajjad Feizollah, November 2024
+% Sajjad Feizollah, December 2024
 % -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
 
 data_address={
-'/export03/data/data/scans/265_Nov14_mermaid_XA30_FLEET_test_WenDa/twix/meas_MID00184_FID08731_SF_mermaid_diff_fleet.dat'
+'/export03/data/data/scans/281_Dec18_scan_for_share_WenDa/twix/meas_MID00305_FID13602_SF_mermaid_diff.dat'
     };
 
 for i_data = 1: length(data_address)
@@ -50,6 +50,10 @@ for i_data = 1: length(data_address)
     twix=mapVBVD(data_address{i_data});
     twix=twix{2};   % usually image scan is the second RAID
     disp(newline+"Reading TWIX data....Done!")
+    
+    if(floor(twix.image.iceParam(21,1)/10) ~= 10)
+        error(strcat('Sequence version not recognized!'));
+    end
         
     %vvvvvvvvvvvv--extract parameters from reference scan header--vvvvvvvvvvvvv
     params.Ncol=twix.refscan.NCol;
@@ -71,7 +75,7 @@ for i_data = 1: length(data_address)
     
     params.Rtri=0.25;     % triangle filter width
     
-    params.fovOS=2;    % reduction factor of FOV (2 is 1x FOV, 1 is 2x FOV)
+    params.fovOS=twix.hdr.Dicom.flReadoutOSFactor;    % FOV oversampling
     params.Nrecon=params.Ncol/params.fovOS;
     
     params.doHann=true;    % semi-Hanning window parameters
@@ -174,7 +178,7 @@ for i_data = 1: length(data_address)
 
     % clean up
     clear data im_cor im im_filt ImagefileID RealfileID Wplane;
-    fprintf(" Done!\n")
+    fprintf("...Done!\n")
 end
 
 % vvvvvvvvvvvvvv--denoise projections over coil dimension--vvvvvvvvvvvvvvvv
@@ -201,7 +205,7 @@ for c=1:params.Ncoil
     fclose(RealfileID);
 end
 clear im_cor RealfileID ImagefileID
-fprintf(" Done!\n")
+fprintf("...Done!\n")
 
 %% vvvvvvvvvvvv--reconstruct volumes from denoised projections--vvvvvvvvvvvv
 for i_data = 1: length(data_address)
@@ -252,7 +256,7 @@ for i_data = 1: length(data_address)
         fprintf('\b\b\b\b\b\b\b\b\b\b%3d of %3d',p,params.Nproj)
         ref_kdata_cor(:,:,p,:)=fftshift(ifft(fftshift(ref_kdata_cor(:,:,p,:)),[],2));
     end
-    fprintf(" Done!\n")
+    fprintf("...Done!\n")
     
     % generate in-plane radial trajectory
     traj=ref_scan_generate_trajectory(params);
@@ -312,7 +316,7 @@ for i_data = 1: length(data_address)
             fprintf('\b\b\b\b\b\b\b\b\b\b%3d of %3d',p,params.Nproj)
             kdata_cor(:,:,p,:)=fftshift(fft2(fftshift(squeeze(img_cor_denoise(:,:,p,:)))));
         end
-        fprintf(" Done!\n")
+        fprintf("...Done!\n")
         
         % apply Hanning filter
         if(params.doHann)
@@ -329,7 +333,7 @@ for i_data = 1: length(data_address)
             fprintf('\b\b\b\b\b\b\b\b\b\b%3d of %3d',p,params.Nproj)
             kdata_cor(:,:,p,:)=fftshift(ifft(fftshift(kdata_cor(:,:,p,:)),[],2));
         end
-        fprintf(" Done!\n")
+        fprintf("...Done!\n")
         
         % generate in-plane radial trajectory
         traj = imaging_scan_generate_trajectory(twix,ind_mc,params);        

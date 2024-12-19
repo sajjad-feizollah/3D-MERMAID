@@ -22,7 +22,7 @@ function data=imaging_scan_phase_correction(twix,v)
 
 TrainLength = twix.hdr.Dicom.EchoTrainLength;
 NCol= twix.image.NCol;
-Nproj=twix.image.NAcq/twix.hdr.Dicom.EchoTrainLength/twix.image.NRep;
+Nproj=twix.image.iceParam(13,1);
 Nread=Nproj*TrainLength;
 phaseCor=twix.phasecor.unsorted((v-1)*3*Nproj+1:3*Nproj*v);
 

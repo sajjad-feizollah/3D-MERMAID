@@ -31,6 +31,6 @@ for p=1:params.Npe
     sens=bart(strjoin({'resize -c 0 ',num2str(params.Nrecon),' 1 ',num2str(params.Nrecon)}), sens);
     sens_map(:,p,:,:)=bart('normalize 8',sens);
 end
-fprintf(" Done!\n")
+fprintf("...Done!\n")
 disp("estimate coil sensitivity....Done!")
 end

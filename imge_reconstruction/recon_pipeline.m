@@ -14,22 +14,21 @@
 %
 % **It requries BART toolbox for image reconstruction.
 %
-% Inputs:   TWIX file addresses in /data/twix/ directory.
+% Inputs:   TWIX file addresses in /data/twix/
 % ------
 % 
-% Outputs:  saves reconstructed images as Nifti in /data/recon/ directory.
-% -------
+% Outputs:  saves reconstructed images as Nifti in /data/recon/
+% ------
 %       
 % Article: 
 % -------
 % 
-% Sajjad Feizollah, November 2024
+% Sajjad Feizollah, December 2024
 % -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
 
 %vvvvvvvvvvvvvvv--List of TWIX files to reconstruct--vvvvvvvvvvvvvvvvvvv
 data_address={
-'/export03/data/data/scans/270_Nov23_gre_ref_scan_test/twix/meas_MID00023_FID09471_SF_mermaid_diff_v110.dat'    
-% '/export03/data/data/scans/270_Nov23_gre_ref_scan_test/twix/meas_MID00025_FID09473_SF_mermaid_diff_fleet.dat'
+'/export03/data/data/scans/281_Dec18_scan_for_share_WenDa/twix/meas_MID00305_FID13602_SF_mermaid_diff.dat'
 };
 
 for i_data = 1: length(data_address)
@@ -49,9 +48,9 @@ for i_data = 1: length(data_address)
     twix=twix{2};   % select imaging scan
     disp(newline+"Reading TWIX data....Done!")
     
-%     if(twix.image.iceParam(20,1)~=100)
-%         error(strcat('Sequence version not recognized!'));
-%     end
+    if(floor(twix.image.iceParam(21,1)/10) ~= 10)
+        error(strcat('Sequence version not recognized!'));
+    end
         
     % vvvvvvvvv--extract parameters from reference scan header--vvvvvvvvvvv
     params.Ncol=twix.refscan.NCol;
@@ -74,7 +73,7 @@ for i_data = 1: length(data_address)
     
     params.Rtri=0.25;     % triangle filter width
     
-    params.fovOS=2;    % reduction factor of FOV (2 is 1x FOV, 1 is 2x FOV)
+    params.fovOS=twix.hdr.Dicom.flReadoutOSFactor;    % FOV oversampling
     params.Nrecon=params.Ncol/params.fovOS;
     
     params.doHann=true;    % semi-Hanning window parameters
@@ -83,7 +82,7 @@ for i_data = 1: length(data_address)
     
     params.doMC=true;      % magnitude motion correction
     
-    params.recon='';       % choose reconstruction method
+    params.recon='CS';       % choose reconstruction method
                            %   '': SENSE
                            % 'L2': L2 norm regularization
                            % 'CS': compressed SENSE
@@ -126,7 +125,7 @@ for i_data = 1: length(data_address)
         fprintf('\b\b\b\b\b\b\b\b\b\b%3d of %3d',p,params.Nproj)
         ref_kdata_cor(:,:,p,:)=fftshift(ifft(fftshift(ref_kdata_cor(:,:,p,:)),[],2));
     end
-    fprintf(" Done!\n")
+    fprintf("...Done!\n")
     
     % generate in-plane radial trajectory
     traj=ref_scan_generate_trajectory(params);
@@ -191,7 +190,7 @@ for i_data = 1: length(data_address)
             fprintf('\b\b\b\b\b\b\b\b\b\b%3d of %3d',p,params.Nproj)
             kdata_cor(:,:,p,:)=fftshift(fft2(fftshift(squeeze(im_cor(:,:,p,:)))));
         end
-        fprintf(" Done!\n")
+        fprintf("...Done!\n")
         
         % apply Hanning filter
         if(params.doHann)
@@ -208,7 +207,7 @@ for i_data = 1: length(data_address)
             fprintf('\b\b\b\b\b\b\b\b\b\b%3d of %3d',p,params.Nproj)
             kdata_cor(:,:,p,:)=fftshift(ifft(fftshift(kdata_cor(:,:,p,:)),[],2));
         end
-        fprintf(" Done!\n")
+        fprintf("...Done!\n")
         
         % generate in-plane radial trajectory
         traj = imaging_scan_generate_trajectory(twix,ind_mc,params);        

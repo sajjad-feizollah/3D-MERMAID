@@ -22,7 +22,7 @@
 % -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
 
 function Wplane = ref_scan_GRAPPA_kernel_estimate(ref_data,source_indx,target_indx,params)
-fprintf("\n    in-plane weight estimation....projection 000 of 000")
+fprintf("    in-plane weight estimation....projection 000 of 000")
 ref_data=reshape(ref_data,[params.Ncol*params.NpeRef,params.Nproj,params.Ncoil]);
 Wplane=zeros(params.Ncoil*params.grappa_win*params.grappa_line,params.Ncoil,params.Nproj,params.Rpe-1);
 for p=1:params.Nproj
@@ -39,5 +39,5 @@ for p=1:params.Nproj
 
     end
 end
-fprintf(" Done!")
+fprintf("...Done!")
 end

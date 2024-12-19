@@ -18,7 +18,7 @@
 % -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
 
 function traj = ref_scan_generate_trajectory(params)
-x=(-params.Npe:1:params.Npe-1)'/params.fovOS;
+x=(-params.Ncol/2:1:params.Ncol/2-1)'/params.fovOS;
 x=[x,zeros(params.Ncol,1)];
 traj=zeros(params.Ncol,2,params.Nproj);
 for p=1:params.Nproj

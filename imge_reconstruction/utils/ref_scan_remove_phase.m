@@ -35,6 +35,6 @@ for p=1:params.Nproj
     fprintf('\b\b\b\b\b\b\b\b\b\b%3d of %3d',p,params.Nproj)
     ref_kdata_cor(:,:,p,:)=fftshift(fft2(fftshift(squeeze(ref_im_cor(:,:,p,:)))));
 end
-fprintf(" Done!\n")
+fprintf("...Done!\n")
 
 end

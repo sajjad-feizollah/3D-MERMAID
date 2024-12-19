@@ -58,6 +58,6 @@ for p=1:params.Nproj
     end
 end
 if(~params.silent)
-    fprintf(" Done!\n")
+    fprintf(" ...Done!\n")
 end
 end
