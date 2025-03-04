@@ -51,6 +51,7 @@ M=[0,0,1]';        % initial magnetization
 if(isempty(exc))
     exc=acosd(exp(-TR/T1));
 end
+TE=2*floor(TE/2);  % only even TEs are used
 
 % >>>>>>>>>> simulation parameters <<<<<<<<<<
 
