@@ -24,7 +24,7 @@
 % Outputs:  saves reconstructed images as Nifti in /data/recon/ directory.
 % -------
 %       
-% Article: 
+% Article:  Feizollah and Tardif (2025), https://doi.org/10.1002/mrm.30436
 % -------
 % 
 % Sajjad Feizollah, December 2024
