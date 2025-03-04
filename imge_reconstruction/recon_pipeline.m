@@ -14,6 +14,8 @@
 %
 % **It requries BART toolbox for image reconstruction.
 %
+% Sample TWIX file can be found in https://doi.org/10.5683/SP3/ULKLNY
+%
 % Inputs:   TWIX file addresses in /data/twix/
 % ------
 % 
