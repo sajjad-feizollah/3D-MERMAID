@@ -29,7 +29,7 @@ for p=1:params.Npe
             img(params.Npe-p+1,:,:)=bart('pics -g -S -d0 -R Q:0.0001 -i25 -t',traj',reshape(kdata_cor(:,p,:,:),1,[],1,params.Ncoil),reshape(sens_map(:,p,:,:),params.Nrecon,params.Nrecon,1,params.Ncoil));
         case 'CS'   % CS with FISTA and 100 iterations
             img(params.Npe-p+1,:,:)=bart('pics -g -S -d0 -R W:3:0:0.001 -e --fista -i100 -t',traj',reshape(kdata_cor(:,p,:,:),1,[],1,params.Ncoil),reshape(sens_map(:,p,:,:),params.Nrecon,params.Nrecon,1,params.Ncoil));
-        case 'nufft'   % CS with FISTA and 100 iterations
+        case 'nufft' % Nonuniform FFT
             img(params.Npe-p+1,:,:,1:params.Ncoil)=bart('nufft -i -g -d0 -t',traj',reshape(kdata_cor(:,p,:,:),1,[],1,params.Ncoil));
         otherwise   % regular SENSE
             img(params.Npe-p+1,:,:)=bart('pics -g -S -d0 -i10 -t',traj',reshape(kdata_cor(:,p,:,:),1,[],1,params.Ncoil),reshape(sens_map(:,p,:,:),params.Nrecon,params.Nrecon,1,params.Ncoil));
