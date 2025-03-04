@@ -13,7 +13,7 @@
 % Outputs:  -
 % -------
 %       
-% Article: 
+% Article:  Feizollah and Tardif (2025), https://doi.org/10.1002/mrm.30436
 % -------
 % 
 % Sajjad Feizollah, November 2024
@@ -285,14 +285,14 @@ label_legend{2} = "GM";
 label_legend{3} = "CSF";
 
 figure('DefaultAxesFontSize',42)
-title("3D MERMAID steady state signal vs. FA")
+title("steady state signal vs. flip angle")
 hold on
 plot(FA,Mx_wm,'LineWidth',10,'color',color{2})
 plot(FA,Mx_gm,'LineWidth',10,'color',color{5})
 plot(FA,Mx_csf,'LineWidth',10,'color',color{8})
 grid on
 grid minor
-xlabel('FA [degree]','FontWeight','bold')
+xlabel('flip angle [degree]','FontWeight','bold')
 ylabel('steady state signal at TE','FontWeight','bold')
 axis([0 90 0 max(Mx_csf)+0.01])
 xticks(0:10:90)
