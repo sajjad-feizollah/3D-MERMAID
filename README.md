@@ -20,7 +20,9 @@ The 3D MERMAID pulse sequence is available for these versions of Siemens scanner
 * XA30
 
 # References
-paper.
+[Feizollah, S., Tardif, C. L. (2025). *3D MERMAID: 3D Multi‐shot enhanced recovery motion artifact insensitive diffusion for submillimeter, multi‐shell, and SNR‐efficient diffusion imaging*](https://doi.org/10.1002/mrm.30436)
+
+Link to the dataset: [https://doi.org/10.5683/SP3/ULKLNY](https://doi.org/10.5683/SP3/ULKLNY)
 
 Please cite appropriate references for BART and NORDIC if they are used for the image reconstruction.
 
