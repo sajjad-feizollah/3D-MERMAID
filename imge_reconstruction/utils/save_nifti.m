@@ -105,6 +105,10 @@ nifti_header=NV.simplifyStruct();
 nifti_header.raw=deafult_header;
 %
 niftiwrite(Vol,filename,nifti_header,'Compressed',false)
+
+% extract and write bval and bvec files from header
+imaging_scan_extract_bvec_bval(twix);
+
 end
 function affine=getAffineMatrix(twix,MatSize)
 sa=twix.hdr.Phoenix.sSliceArray.asSlice{1};
