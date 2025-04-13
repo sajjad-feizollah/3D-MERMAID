@@ -3,7 +3,7 @@
 % Description: 
 % -----------
 % 
-% saves nifti files. adapted from 
+% saves nifti files. adapted from the references.
 %
 % Inputs:   Vol: image volume.
 % ------    twix: output of mapVBVD.
