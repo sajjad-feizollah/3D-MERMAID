@@ -117,7 +117,7 @@ for i_data = 1: length(data_address)
     % extract parameters from imaging scan header
     params.Ncol=twix.image.NCol;
     params.Nline=twix.image.NLin;
-    params.Npe=twix.hdr.Config.BaseResolution;
+    params.Npe=twix.hdr.Config.PhaseEncodingLines;
     params.NpeRef=twix.hdr.Phoenix.sPat.lRefLinesPE;
     params.Rpe=twix.hdr.Phoenix.sPat.lAccelFactPE;
     params.Nproj=twix.hdr.Phoenix.sWipMemBlock.alFree{13};
@@ -273,7 +273,7 @@ for i_data = 1: length(data_address)
     % extract parameters from imaging scan header
     params.Ncol=twix.image.NCol;
     params.Nline=twix.image.NLin;
-    params.Npe=twix.hdr.Config.BaseResolution;
+    params.Npe=twix.hdr.Config.PhaseEncodingLines;
     params.NpeRef=twix.hdr.Phoenix.sPat.lRefLinesPE;
     params.Rpe=twix.hdr.Phoenix.sPat.lAccelFactPE;
     params.Nproj=twix.hdr.Phoenix.sWipMemBlock.alFree{13};
