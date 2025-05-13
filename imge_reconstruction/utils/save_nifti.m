@@ -3,7 +3,7 @@
 % Description: 
 % -----------
 % 
-% saves nifti files. adapted from the references.
+% saves nifti files. adapted from 
 %
 % Inputs:   Vol: image volume.
 % ------    twix: output of mapVBVD.
@@ -55,15 +55,27 @@ sa=twix.hdr.Phoenix.sSliceArray.asSlice{1};
 try
     FOV_PRS=[sa.dPhaseFOV sa.dReadoutFOV  sa.dReadoutFOV]; %mm
 catch
-    FOV_PRS=[ sa.dPhaseFOV sa.dReadoutFOV sa.dReadoutFOV]; %mm
+    FOV_PRS=[sa.dPhaseFOV sa.dReadoutFOV sa.dReadoutFOV]; %mm
 end
 
+% rotate image into unity space
+switch length(twix.hdr.Phoenix.sWipMemBlock.alFree{9})
+    case 0
+        if(isempty(twix.hdr.Phoenix.sWipMemBlock.alFree{10}))
+            Vol = rot90(flip(flip(Vol,1),2),1);
+            FOV_PRS=[FOV_PRS(2) FOV_PRS(1) FOV_PRS(3)];
+        else
+            Vol = rot90(Vol,1);
+        end
+end
 
 MatSz=[size(Vol,1),size(Vol,2),size(Vol,3) ];
 Res_PRS=FOV_PRS./MatSz; %mm
 
 % res=sa.dReadoutFOV/kspst.lBaseResolution;
 % Res_PRS=[res/kspst.dPhaseResolution   res FOV_PRS(3)/kspst.lPartitions];
+
+
 
 AffineMat=getAffineMatrix(twix,[size(Vol),1]);
 trans_vec=AffineMat(1:3,4);
@@ -120,6 +132,8 @@ catch
     FOV_PRS=[ sa.dPhaseFOV sa.dReadoutFOV sa.dReadoutFOV]; %mm
 end
 
+FOV_PRS=[FOV_PRS(2) FOV_PRS(1) FOV_PRS(3)];
+
 if(exist('MatSize'))
     Res_PRS=FOV_PRS./MatSize(1:3);
 else
@@ -129,11 +143,11 @@ else
 end
 
 offcenter_SCT=twix.image.slicePos(1:3,1);
-Quat=twix.image.slicePos(4:end,1);
+% Quat=twix.image.slicePos(4:end,1);
+Quat=[1,0,0,0];
 
 T=quat2tform(Quat(:)');
 T(1:3,4)=offcenter_SCT;
-
 
 % translated from recoMRD.py
 % https://github.com/aghaeifar/recoMRD/blob/7e294802ad3ec56fdcf33047c9f92dfddad3f9dc/recoMRD/readMRD.py
