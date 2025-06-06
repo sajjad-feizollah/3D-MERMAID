@@ -12,4 +12,22 @@ ice(isnan(ice))=0;
 diff_info=ice(:,1:twix.hdr.Dicom.EchoTrainLength*twix.hdr.Phoenix.sWipMemBlock.alFree{13}:end);
 bval=diff_info(1,:);
 bvec=diff_info(2:end,:);
-bvec_bval_write(bval',bvec',strcat(addr,fileName));
+write_bvec_bval(bval',bvec',strcat(addr,fileName));
+end
+
+function write_bvec_bval(bval,bvec,fileName)
+
+fIDx1=fopen(strcat(fileName,'_bvectors.bvec'),'w');
+fIDx2=fopen(strcat(fileName,'_bvalues.bval'),'w');
+
+for i=1:3
+    for k=1:size(bvec,1)
+        fprintf(fIDx1,"%1.4f ",bvec(k,i));
+    end
+    fprintf(fIDx1,"\n");
+end
+for k=1:size(bval,1)
+    fprintf(fIDx2,"%d ",bval(k));
+end
+fclose('all');
+end
